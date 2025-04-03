@@ -10,7 +10,7 @@ Content-Type: application/json
   {
     "id": 11,
     "name": "Killing Floor",
-    "genre": "FPS",
+    "genreId": 6,
     "price": 5.99,
     "releaseDate": "2009-11-11"
   }

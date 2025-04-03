@@ -1,5 +1,7 @@
 using System;
+using GameStock.Api.Data;
 using GameStock.Api.Dtos;
+using GameStock.Api.Entities;
 
 namespace GameStock.Api.Endpoints;
 
@@ -38,15 +40,20 @@ public static class GamesEndpoints
         .WithName(GetGameEndPointName);
 
         // POST /games
-        group.MapPost("/", (CreateGameDto newGame) =>
+        group.MapPost("/", (CreateGameDto newGame, GameStockContext dbContext) =>
         {
-            GameDto game = new(games.Count + 1,
-            newGame.Name,
-            newGame.Genre,
-            newGame.Price,
-            newGame.ReleaseDate);
+            Game game = new()
+            {
+                Name = newGame.Name,
+                Genre = dbContext.Genres.Find(newGame.GenreId),
+                GenreId = newGame.GenreId,
+                Price = newGame.Price,
+                ReleaseDate = newGame.ReleaseDate
+            };
 
-            games.Add(game);
+            dbContext.Games.Add(game);
+            dbContext.SaveChanges();
+
             return Results.CreatedAtRoute(GetGameEndPointName, new { id = game.Id }, game);
         })
         .WithParameterValidation();
