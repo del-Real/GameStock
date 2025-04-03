@@ -8,6 +8,11 @@
 *.sln.docstates
 *.sln.ide/
 
+# Ignore Database
+*.db
+*.db-shm
+*.db-wal
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

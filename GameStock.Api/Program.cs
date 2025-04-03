@@ -8,5 +8,6 @@ builder.Services.AddSqlite<GameStockContext>(connString);
 
 var app = builder.Build();
 app.MapGamesEndPoints();
+app.MigrateDb();
 
 app.Run();
