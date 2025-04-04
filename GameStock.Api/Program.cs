@@ -7,7 +7,10 @@ var connString = builder.Configuration.GetConnectionString("GameStock");
 builder.Services.AddSqlite<GameStockContext>(connString);
 
 var app = builder.Build();
+
 app.MapGamesEndPoints();
-app.MigrateDb();
+app.MapGenresEndPoints();
+
+await app.MigrateDbAsync();
 
 app.Run();
